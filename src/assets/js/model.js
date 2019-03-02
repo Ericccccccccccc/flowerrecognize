@@ -183,8 +183,6 @@ async function take_snapshot() {
 
 export default
 {
-	model: model,
-
 	analysize: async function(model, img)
 	{
 		var data = {};

@@ -24,11 +24,16 @@ Vue.use(Vuex);
 const router = new VueRouter(Router);
 const store = new Vuex.Store({
 	state: {
-		model: null
+		wait: false,
+		model: null,
+		image: null
 	},
 	mutations: {
 		setModel: (state, model) => {
 			state.model = model;
+		},
+		setImage: (state, image) => {
+		  state.image = image;
 		}
 	}
 })

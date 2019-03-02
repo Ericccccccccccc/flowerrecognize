@@ -33,11 +33,13 @@ import body from "./Body";
 // import data from "../mock/data.js";
 import obj from "../assets/js/model.js"
 
+const setImage = "setImage";
+
 export default
 {
 	data: function() {
-			return {
-			image: ''
+		return {
+			image: '',
 		}
 	},
 	components: {
@@ -54,16 +56,29 @@ export default
 		},
 		recognize: function()
 		{
-			var _this = this;
+			this.$store.commit(setImage, this.image);
 			var model = this.$store.state.model;
 
-			obj.analysize(model, this.image).then(
+			if( this.$store.state.model)
+				this.callback(this.$store.state);
+			else {
+				this.$store.state.wait = true;
+				console.log("wait...");
+			}
+		},
+		callback: function(state)
+		{
+
+			var model = state.model;
+			var image = state.image;
+
+			obj.analysize(model, image).then(
 				data=>
 				{
-					_this.$router.push({
+					this.$router.push({
 						name: "Display",
 						params: {
-							image: _this.image,
+							image: image,
 							data: data
 						}
 					});

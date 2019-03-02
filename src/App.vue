@@ -7,14 +7,23 @@
 
 <script>
 import obj from './assets/js/model.js';
+import show from './components/Show.vue';
+
 const setModel = "setModel"
 
 export default {
 	name: 'App',
 	created: function() {
-		obj.modelInit().then(res=> {
+		obj.modelInit().then(res=>
+		{
 			this.$store.commit(setModel, res);
-			console.log(res);
+
+			if( this.$store.state.wait)
+				show.methods.callback(this.$store.state);
+
+			this.$store.state.wait = false;
+			
+			console.log("model ready");
 		});
 	},
 	template: "template"
