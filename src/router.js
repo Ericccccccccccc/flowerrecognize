@@ -4,7 +4,7 @@ import display from './components/Display';
 
 
 export default {
-	mode: 'history',
+	mode: 'hash',
   	routes: [
 		{name: "Home", path: '/', component: home},
 		{name: "Show", path: '/show', component: show},
