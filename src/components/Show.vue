@@ -1,7 +1,7 @@
 <template>
 
 	<div class="row my-container">
-		<mt-button icon="back" @click="back"> </mt-button>
+		<mt-button icon="back" @click="back" style="float:left"> </mt-button>
 
 		<my-title/>
 
@@ -65,7 +65,7 @@ export default
 				this.callback(this);
 			else {
 				this.$store.state.wait = true;
-				$("#my-loading").toggle();
+				$("#my-loading").show();
 				console.log("wait...");
 			}
 		},

@@ -1,6 +1,6 @@
 <template>
     <div class="row my-body-wrap">
-        <div class="col-sx-12" style="height:100%;display:relative;">
+        <div class="col-sx-12" style="height:100%; display:relative; margin:0">
             <slot> </slot>
         </div>
     </div>

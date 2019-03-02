@@ -1,7 +1,7 @@
 <template>
 
     <div class="row my-container">
-        <mt-button icon="back" @click="back"> </mt-button>
+        <mt-button icon="back" @click="back" style="float:left"> </mt-button>
 
 		<div class="my-tip"> 下载模型用时：{{ modelTimeSpan }} </div>
 		<div class="my-tip"> 计算用时：{{ data.timeSpan }} </div>

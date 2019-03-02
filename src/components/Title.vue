@@ -31,6 +31,7 @@ export default
 .my-title-wrap {
 	height: 50%;
 	text-align: center;
+	margin: 0;
 }
 
 .my-title-margin {
