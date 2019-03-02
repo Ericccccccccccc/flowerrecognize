@@ -1,29 +1,40 @@
 <template>
 
-    <div class="row">
+    <div class="row my-container">
         <mt-button icon="back" @click="back"> </mt-button>
 
+		<div class="my-tip"> 下载模型用时：{{ modelTimeSpan }} </div>
+		<div class="my-tip"> 计算用时：{{ data.timeSpan }} </div>
+		<div class="my-tip"> 确信度：{{ data.confidence }} </div>
+
 		<div v-if="data.succ">
+			<div style="margin:20% 20%; color:gray;">
+				<h2 style="margin-left:-3%;"> {{ info.中文名 }} </h2>
 
-			<div class="my-margin"> </div>
-			<h2> {{ info.cname }} </h2>
+				<hr style="margin-left:-20%;"/>
 
-			<p v-for="(val, key, index) in info" :key="index">
-				{{ key }}: {{ val }}
-			</p>
-
-			<div class="my-img-wrap">
-
-				<div id="my-range"> </div>
-
-				<img :src="image">
+				<p class="my-font" v-for="(val, key, index) in info" :key="index">
+					<span class="col-xs-6 my-key"> {{ key }}: </span>
+					<span class="col-xs-6 my-value"> {{ val }} </span>
+				</p>
 			</div>
-
 		</div>
 
 		<div v-else>
-			<h2> 鉴别失败 </h2>
-			<p> 请对准要识别的植物或者植物不在雏菊,蒲公英,玫瑰,向日葵,郁金香的类别中 </p>
+			<div style="margin:20% 20%; color:gray;">
+				<h2 style="margin-left:-3%;"> 鉴别失败 </h2>
+				<p style="margin:10% -10%; text-indent:1em;">
+					请对准要识别的植物或者植物不在雏菊,蒲公英,玫瑰,向日葵,郁金香的类别中
+				</p>
+			</div>
+		</div>
+
+		<div style="text-align:center;">
+			<div class="my-img-wrap">
+
+				<!-- <div id="my-range"> </div> -->
+				<img :src="image">
+			</div>
 		</div>
 
         <!-- <mt-button @click.native="camera()" type="danger" class="button button-caution button-pill button-jumbo">
@@ -44,19 +55,23 @@ export default
         return {
 			info: null,
 			image: null,
-			data: null
+			data: null,
+			modelTimeSpan: null
         }
     },
     created: function()
     {
 		this.data = this.$route.params.data;
 		this.image = this.$route.params.image;
+		this.modelTimeSpan = this.$store.state.modelTimeSpan;
 
 		$.each(dicts, (i, dict)=> {
-			if( this.data.cname === dict.cname) {
+			if( this.data.cname === dict.中文名) {
 				this.info = dict;  return ;
 			}
 		});
+
+		console.log(this.data);
     },
     // mounted: function() {
     //     let height = this.pos.ed.y - this.pos.st.y;
@@ -104,7 +119,7 @@ export default
         //      *
         //      */
         // }
-    },
+	},
     template: "template"
 }
 
@@ -116,6 +131,7 @@ export default
     display: inline-block;
     overflow: hidden;
     position: relative;
+	margin-top: 20%;
 }
 
 #my-range {
@@ -127,5 +143,30 @@ export default
     position: absolute;
 }
 
+.my-font {
+	font-size: 20px;
+	color: gray;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 30%;
+	line-height: 200%;
+}
+
+.my-key {
+	color: crimson;
+}
+
+.my-value {
+	color: greenyellow;
+}
+
+.my-tip {
+	float: right;
+	margin: 5% 5% 0 0;
+	color: lavender;
+	font-size: 18px;
+	text-shadow: 1px 1px 3px white;
+	clear: both;
+}
 
 </style>

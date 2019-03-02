@@ -25,6 +25,7 @@ export default {
 .my-body-wrap {
 	height: 50%;
 	text-align: center;
+	margin: 0;
 }
 
 </style>

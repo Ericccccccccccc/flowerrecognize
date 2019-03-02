@@ -108,10 +108,11 @@ async function loadMobileNetv2() {
 //   alert('load done!');
   // Return a model that outputs an internal activation.
 
-//   let d2 = new Date();
-//   let time2 = d2.getTime();
+  let d2 = new Date();
+  let time2 = d2.getTime();
 //   document.getElementById('status').innerHTML = 'Loading Done!\n' + '用时:' + String((time2 - time1) / 1000.0) + '秒'
-  return mobilenet
+
+  return { model: mobilenet, timeSpan: (d2-d1)/1000 };
 }
 
 
@@ -260,7 +261,6 @@ export default
 	},
 
 	modelInit: async function init() {
-		model = await loadMobileNetv2();
-		return model;
+		return await loadMobileNetv2();
 	}
 };

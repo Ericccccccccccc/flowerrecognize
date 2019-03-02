@@ -26,7 +26,8 @@ const store = new Vuex.Store({
 	state: {
 		wait: false,
 		model: null,
-		image: null
+		image: null,
+		modelTimeSpan: 0
 	},
 	mutations: {
 		setModel: (state, model) => {

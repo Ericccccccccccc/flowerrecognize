@@ -16,13 +16,17 @@ export default {
 	created: function() {
 		obj.modelInit().then(res=>
 		{
-			this.$store.commit(setModel, res);
+			let model = res.model;
+			let timeSpan = res.timeSpan;
+
+			this.$store.commit(setModel, model);
+			this.$store.state.modelTimeSpan = timeSpan;
 
 			if( this.$store.state.wait)
-				show.methods.callback(this.$store.state);
+				show.methods.callback(this);
 
 			this.$store.state.wait = false;
-			
+
 			console.log("model ready");
 		});
 	},
@@ -49,7 +53,6 @@ html, body{
 }
 
 #app {
-  overflow: hidden;
 	height: 100%;
 }
 

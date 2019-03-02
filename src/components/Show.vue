@@ -7,7 +7,7 @@
 
 		<my-body>
 			<div class="row">
-				<div class="col-xs-12" style="display:inline-block;">
+				<div id="my-image-wrap" class="col-xs-12" style="display:inline-block;">
 					<img :src="image">
 				</div>
 			</div>
@@ -52,6 +52,7 @@ export default
 	methods:
 	{
 		back: function() {
+			this.$store.state.wait = false;
 			this.$router.push("/");
 		},
 		recognize: function()
@@ -60,22 +61,21 @@ export default
 			var model = this.$store.state.model;
 
 			if( this.$store.state.model)
-				this.callback(this.$store.state);
+				this.callback(this);
 			else {
 				this.$store.state.wait = true;
 				console.log("wait...");
 			}
 		},
-		callback: function(state)
+		callback: function(_this)
 		{
-
-			var model = state.model;
-			var image = state.image;
+			var model = _this.$store.state.model;
+			var image = _this.$store.state.image;
 
 			obj.analysize(model, image).then(
 				data=>
 				{
-					this.$router.push({
+					_this.$router.push({
 						name: "Display",
 						params: {
 							image: image,
