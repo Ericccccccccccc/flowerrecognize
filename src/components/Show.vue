@@ -16,6 +16,7 @@
 
 			<div class="row">
 				<mt-button @click.native="recognize()" type="danger" size="small" class="button button-caution button-pill">
+					<i id="my-loading" style="display:none" class="fa fa-spinner"></i>
 					<i class="fa fa-upload"> 识别 </i>
 				</mt-button>
 			</div>
@@ -64,6 +65,7 @@ export default
 				this.callback(this);
 			else {
 				this.$store.state.wait = true;
+				$("#my-loading").toggle();
 				console.log("wait...");
 			}
 		},
