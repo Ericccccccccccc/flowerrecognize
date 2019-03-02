@@ -1,6 +1,7 @@
 <template>
 
 	<div class="row my-container">
+		<mt-button icon="back" @click="back"> </mt-button>
 
 		<my-title/>
 
@@ -29,11 +30,12 @@
 <script>
 import title from "./Title";
 import body from "./Body";
-import data from "../mock/data.js";
+// import data from "../mock/data.js";
+import obj from "../assets/js/model.js"
 
 export default
 {
-		data: function() {
+	data: function() {
 			return {
 			image: ''
 		}
@@ -47,16 +49,26 @@ export default
 	},
 	methods:
 	{
+		back: function() {
+			this.$router.push("/");
+		},
 		recognize: function()
 		{
-			this.$router.push({
-				name: "Display",
-				params: {
-					image: this.image,
-					info: data.info,
-					pos: data.pos
+			var _this = this;
+			var model = this.$store.state.model;
+
+			obj.analysize(model, this.image).then(
+				data=>
+				{
+					_this.$router.push({
+						name: "Display",
+						params: {
+							image: _this.image,
+							data: data
+						}
+					});
 				}
-			});
+			);
 		}
 	}
 }

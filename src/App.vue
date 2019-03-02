@@ -6,9 +6,17 @@
 
 
 <script>
+import obj from './assets/js/model.js';
+const setModel = "setModel"
 
 export default {
 	name: 'App',
+	created: function() {
+		obj.modelInit().then(res=> {
+			this.$store.commit(setModel, res);
+			console.log(res);
+		});
+	},
 	template: "template"
 }
 

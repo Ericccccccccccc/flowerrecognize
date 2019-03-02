@@ -25,7 +25,8 @@
 import Vue from "vue";
 import { Button } from 'mint-ui';
 import title from "./Title";
-import body from "./Body"
+import body from "./Body";
+
 Vue.component(Button.name, Button);
 
 export default

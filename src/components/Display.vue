@@ -1,90 +1,109 @@
 <template>
 
     <div class="row">
-        <mt-button icon="back"> </mt-button>
+        <mt-button icon="back" @click="back"> </mt-button>
 
-        <div class="my-margin"> </div>
-        <h2> {{ info.cname }} </h2>
+		<div v-if="data.succ">
 
-        <p v-for="(val, key, index) in info" :key="index">
-            {{ key }}: {{ val }}
-        </p>
+			<div class="my-margin"> </div>
+			<h2> {{ info.cname }} </h2>
 
-        <div class="my-img-wrap">
+			<p v-for="(val, key, index) in info" :key="index">
+				{{ key }}: {{ val }}
+			</p>
 
-            <div id="my-range"> </div>
+			<div class="my-img-wrap">
 
-            <img :src="image">
-        </div>
+				<div id="my-range"> </div>
 
-        <mt-button @click.native="camera()" type="danger" class="button button-caution button-pill button-jumbo">
+				<img :src="image">
+			</div>
+
+		</div>
+
+		<div v-else>
+			<h2> 鉴别失败 </h2>
+			<p> 请对准要识别的植物或者植物不在雏菊,蒲公英,玫瑰,向日葵,郁金香的类别中 </p>
+		</div>
+
+        <!-- <mt-button @click.native="camera()" type="danger" class="button button-caution button-pill button-jumbo">
             <i class="fa fa-camera"> 合个影吧 </i>
             <input id="launch-camera" @change="imageDeal" type="file" capture="camera" accept="image/*" style="display:none">
-        </mt-button>
+        </mt-button> -->
     </div>
 
 </template>
 
 
 <script>
+import dicts from "../assets/js/data.js"
 
 export default
 {
     data: function() {
         return {
-            info: {},
-            pos: {},
-            image: {}
+			info: null,
+			image: null,
+			data: null
         }
     },
     created: function()
     {
-        this.info = this.$route.params.info;
-        this.pos = this.$route.params.pos;
-        this.image = this.$route.params.image;
-    },
-    mounted: function() {
-        let height = this.pos.ed.y - this.pos.st.y;
-        let width = this.pos.ed.x - this.pos.st.x;
+		this.data = this.$route.params.data;
+		this.image = this.$route.params.image;
 
-        $("#my-range").css({
-            height: height*100 + "%",
-            width: width*100 + "%",
-            top: this.pos.st.x*100 + "%",
-            left: this.pos.st.y*100 + "%"
-        });
+		$.each(dicts, (i, dict)=> {
+			if( this.data.cname === dict.cname) {
+				this.info = dict;  return ;
+			}
+		});
     },
+    // mounted: function() {
+    //     let height = this.pos.ed.y - this.pos.st.y;
+    //     let width = this.pos.ed.x - this.pos.st.x;
+
+    //     $("#my-range").css({
+    //         height: height*100 + "%",
+    //         width: width*100 + "%",
+    //         top: this.pos.st.x*100 + "%",
+    //         left: this.pos.st.y*100 + "%"
+    //     });
+    // },
     methods:
     {
-        camera: function() {
-            $("#launch-camera").click();
-        },
-        imageDeal: function(event)
-		{
-			const reader = new FileReader();
-			let files = event.target.files[0];
+		back: function() {
+			this.$router.push("/");
+		},
 
-			if(/image/.test(files.type))
-			{
-				reader.readAsDataURL(files);
-				let _this = this;
+        // camera: function() {
+        //     $("#launch-camera").click();
+        // },
+        // imageDeal: function(event)
+		// {
+		// 	const reader = new FileReader();
+		// 	let files = event.target.files[0];
 
-				reader.onload = ()=>
-				{
-                    mergeImage(this.image, reader.result);
+		// 	if(/image/.test(files.type))
+		// 	{
+		// 		reader.readAsDataURL(files);
+		// 		let _this = this;
 
-					_this.$router.push({
-						name: "Share",
-						params: {image: reader.result}
-					});
-				}
-			}
-        },
-        mergeImage: function(img1, img2) {
-            /**
-             * 
-             */
-        }
+		// 		reader.onload = ()=>
+		// 		{
+        //             mergeImage(this.image, reader.result);
+
+		// 			_this.$router.push({
+		// 				name: "Share",
+		// 				params: {image: reader.result}
+		// 			});
+		// 		}
+		// 	}
+        // },
+        // mergeImage: function(img1, img2) {
+        //     /**
+        //      *
+        //      */
+        // }
     },
     template: "template"
 }
