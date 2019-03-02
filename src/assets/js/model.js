@@ -98,7 +98,7 @@ async function loadMobileNetv2() {
 
   let d1 = new Date();
   let time1 = d1.getTime();
-  console.log(1111);
+//   console.log(1111);
 
   const mobilenet = await tf.loadLayersModel(
 	// 'https://tfjs-1256337767.cos.ap-shanghai.myqcloud.com/model.json');
@@ -231,7 +231,7 @@ export default
 
 			data.cname = label_chinese[classId[0]];
 			data.ename = labels[classId[0]];
-		
+
 			data.succ = true;
 		}
 
