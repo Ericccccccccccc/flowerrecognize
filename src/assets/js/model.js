@@ -102,7 +102,7 @@ async function loadMobileNetv2() {
 
   const mobilenet = await tf.loadLayersModel(
 	// 'https://tfjs-1256337767.cos.ap-shanghai.myqcloud.com/model.json');
-  'https://raw.githubusercontent.com/Ericccccccccccc/tfjs/master/model.json');
+  'https://tfjs-1256337767.cos.ap-shanghai.myqcloud.com/model.json');
   //'https://lz-legal-aid.cn:9000/download/model.json');
 
 //   alert('load done!');
